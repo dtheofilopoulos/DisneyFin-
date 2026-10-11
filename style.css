@@ -1,156 +1,218 @@
-/* ==========================================================================
-   Jellyfin — Disney+ style player controls
-   Paste into: Dashboard → General → Custom CSS
-   Tested against the stock Jellyfin web client OSD (osd/videoOsd) markup.
-   Class names can shift between Jellyfin versions — if something doesn't
-   apply, open devtools on the player and check the element still uses
-   the same class.
-   ========================================================================== */
-
-:root {
-  --d-accent: #0f7cff;       /* Disney+ blue */
-  --d-accent-hover: #4a9dff;
-  --d-bg-gradient: linear-gradient(to top, rgba(5, 12, 20, 0.95) 0%, rgba(5, 12, 20, 0.6) 45%, rgba(5, 12, 20, 0) 100%);
-  --d-text: #ffffff;
-  --d-text-dim: rgba(255, 255, 255, 0.65);
+:root{
+  --d-accent:#0f8aff;
+  --d-accent-hover:#4aa8ff;
+  --d-text:#fff;
+  --d-text-dim:rgba(255,255,255,.65);
+  --d-bg-gradient:linear-gradient(to top,rgba(3,8,15,.97) 0%,rgba(3,8,15,.65) 45%,rgba(3,8,15,0) 100%);
+  --d-bg-gradient-top:linear-gradient(to bottom,rgba(3,8,15,.97) 0%,rgba(3,8,15,.65) 45%,rgba(3,8,15,0) 100%);
+  --d-pill-bg:rgba(255,255,255,.08);
+  --d-radius-pill:999px;
+  --d-radius-md:10px;
+  --d-blur-sm:blur(6px);
+  --d-surface:rgba(8,12,18,.85);
+  --d-surface-solid:rgba(12,15,20,.95);
+  --d-surface-border:rgba(255,255,255,.08);
+  --d-input-bg:rgba(255,255,255,.06);
+  --d-shadow-card:0 2px 10px rgba(0,0,0,.4);
+  --d-shadow-pill:0 2px 8px rgba(0,0,0,.4);
+  --d-shadow-btn:0 4px 12px rgba(0,0,0,.5);
+  --d-shadow-thumb:0 8px 24px rgba(0,0,0,.6);
 }
 
-/* ---- Bottom OSD bar container ---- */
-.videoOsdBottom,
-.osdControls .videoOsdBottom {
-  background: var(--d-bg-gradient) !important;
-  backdrop-filter: none !important;
-  padding: 0 3.5vw 2.2vw !important;
-  border: none !important;
-}
+/* Typography */
+.MuiTypography-h2{font-weight:800!important;font-size:1.6em!important;letter-spacing:-.2px!important;color:var(--d-text)!important}
 
-/* ---- Top OSD (title bar) — fade instead of hard bar ---- */
-.osdHeader,
-.videoOsdTop {
-  background: linear-gradient(to bottom, rgba(5, 12, 20, 0.85) 0%, rgba(5, 12, 20, 0) 100%) !important;
-}
+/* Chips & pill-style links */
+.MuiChip-root.MuiChip-filled{background:var(--d-pill-bg)!important;border:1px solid rgba(255,255,255,.15)!important;backdrop-filter:var(--d-blur-sm)}
+.MuiChip-root.MuiChip-filled .MuiChip-label{color:var(--d-text-dim)!important;font-weight:500!important}
+.itemTags a.button-link,.itemExternalLinks a.button-link{background:var(--d-pill-bg)!important;border-radius:var(--d-radius-pill)!important;text-decoration:none!important;backdrop-filter:var(--d-blur-sm)}
+.itemTags a.button-link{padding:.15em .7em!important;color:var(--d-text-dim)!important}
+.itemExternalLinks a.button-link{padding:.2em .9em!important;font-weight:600!important;color:var(--d-text)!important}
+.itemTags a.button-link:hover,.itemExternalLinks a.button-link:hover,.detailsGroupItem a.button-link:hover{background:transparent!important;color:var(--d-accent-hover)!important}
 
-/* ---- Title / episode text ---- */
-.videoOsdTitle,
-.videoOsdBottom .osdTitle {
-  color: var(--d-text) !important;
-  font-weight: 600 !important;
-  font-size: 1.1em !important;
-  letter-spacing: 0.2px;
-}
+/* Buttons / toggle groups */
+.MuiButtonGroup-contained .MuiButton-containedPrimary{background:var(--d-accent)!important;color:var(--d-text)!important;border-radius:var(--d-radius-pill)!important;font-weight:700!important;text-transform:none!important;box-shadow:none!important}
+.MuiButtonGroup-contained .MuiButton-containedPrimary:hover{background:var(--d-accent-hover)!important}
+.MuiButtonGroup-text.MuiButtonGroup-colorInherit .MuiButton-textInherit{color:var(--d-text-dim)!important}
+.MuiButtonGroup-text.MuiButtonGroup-colorInherit .MuiButton-textInherit:hover{color:var(--d-accent-hover)!important}
+.MuiButtonGroup-text.MuiButtonGroup-colorInherit .MuiButton-textInherit.Mui-disabled{color:rgba(255,255,255,.25)!important}
+.alphaPicker-fixed-right .MuiToggleButton-root{color:var(--d-text-dim)!important;border:none!important;font-weight:600!important;font-size:.75em!important}
+.alphaPicker-fixed-right .MuiToggleButton-root:is(:hover,[aria-pressed="true"]){color:var(--d-accent-hover)!important;background:transparent!important}
 
-.videoOsdBottom .osdSubtitle,
-.videoOsdBottom .secondaryText {
-  color: var(--d-text-dim) !important;
-  font-weight: 400 !important;
-}
+/* Scroller / grid containment fixes */
+.itemsContainer,.emby-scroller,.scrollSlider,.emby-scrollbuttons,.emby-scrollbuttons-scroller,.verticalSection,.verticalSection .itemsContainer,.emby-scroller-container,.homeSectionsContainer,.homeSection,.sectionContainer,.scrollSlider.itemsContainer,.padded-left,.padded-right,.card.portraitCard,.card.overflowPortraitCard{overflow:visible!important;contain:none!important}
+.emby-scroller{overflow-x:auto!important;overflow-y:visible!important}
+.emby-scrollbuttons-button{background:rgba(0,0,0,.5)!important;border-radius:50%!important;color:var(--d-text)!important;opacity:.75;backdrop-filter:blur(4px)}
+.emby-scrollbuttons-button:hover{background:rgba(0,0,0,.75)!important;opacity:1;color:var(--d-accent-hover)!important}
 
-/* ---- Progress / seek bar ---- */
-.osdControls .sliderContainer,
-.videoOsdBottom .mdl-slider-container {
-  height: 4px !important;
-}
+/* Cards */
+.card.portraitCard .cardImageContainer,.card.overflowPortraitCard .cardImageContainer{border-radius:6px!important;overflow:hidden;box-shadow:var(--d-shadow-card)}
+.cardOverlayButton.cardOverlayFab-primary{background:rgba(255,255,255,.95)!important;color:#0a0a0a!important;border-radius:50%!important;box-shadow:var(--d-shadow-btn)}
+.cardOverlayButton.cardOverlayFab-primary:hover{background:#fff!important;color:var(--d-accent-hover)!important}
+.MuiButtonGroup-outlined.cardOverlayButton-br{background:rgba(0,0,0,.55)!important;border-radius:var(--d-radius-pill)!important;backdrop-filter:blur(4px)}
+.MuiButtonGroup-outlined.cardOverlayButton-br .cardOverlayButton{color:var(--d-text)!important}
+.MuiButtonGroup-outlined.cardOverlayButton-br .cardOverlayButton:hover{color:var(--d-accent-hover)!important}
+.playedIndicator.indicator{background:var(--d-accent)!important;border-radius:50%!important}
+.cardText.cardText-first,.card.overflowPortraitCard .cardText-first{color:var(--d-text)!important;font-weight:700!important}
+.cardText.cardText-first{font-size:.95em!important;letter-spacing:-.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cardText.cardText-first .itemAction.textActionButton{color:inherit!important}
+.card.overflowPortraitCard .cardText-first{font-size:.9em!important}
+.cardText.cardText-secondary,.card.overflowPortraitCard .cardText-secondary{color:var(--d-text-dim)!important}
+.cardText.cardText-secondary{font-size:.8em!important;font-weight:400!important}
+.card.overflowPortraitCard .cardText-secondary{font-size:.78em!important}
 
-.slider-track-noninteractive,
-.mdl-slider__background-flex,
-.mdl-slider-background-lower {
-  background-color: var(--d-accent) !important;
-  height: 4px !important;
-  border-radius: 2px !important;
-}
+/* Item detail page */
+.backdropImage{-webkit-mask-image:linear-gradient(to bottom,#000 45%,transparent 95%);mask-image:linear-gradient(to bottom,#000 45%,transparent 95%)}
+.detailLogo{max-width:min(560px,70vw);max-height:190px}
+.itemName{color:var(--d-text)!important;font-weight:800!important;font-size:2.4em!important;letter-spacing:-.5px!important;text-shadow:0 3px 14px rgba(0,0,0,.55)}
+.tagline{color:var(--d-text-dim)!important;font-weight:400!important;font-style:italic;font-size:1.1em!important}
+.itemMiscInfo.itemMiscInfo-primary{color:var(--d-text-dim)!important;font-weight:500!important}
+.itemMiscInfo .mediaInfoOfficialRating{border:1px solid rgba(255,255,255,.4)!important;border-radius:4px!important;padding:.05em .4em!important;color:var(--d-text)!important}
+.itemMiscInfo .starRatingContainer .starIcon{color:#f5c518!important}
+.itemMiscInfo .mediaInfoCriticRating{border-radius:var(--d-radius-pill)!important;padding:.05em .55em!important;font-weight:700!important}
+.mediaInfoCriticRatingFresh{background:rgba(50,200,100,.18)!important;color:#4ade80!important}
+.mediaInfoCriticRatingRotten{background:rgba(220,60,60,.18)!important;color:#f87171!important}
+.overview.detail-clamp-text{color:var(--d-text)!important;line-height:1.6!important;font-size:1.03em!important}
+.overview-expand{color:var(--d-accent-hover)!important;font-weight:600!important}
+.itemTags{color:var(--d-text-dim)!important;display:flex;flex-wrap:wrap;align-items:center;gap:.4em}
+.detailsGroupItem .label{color:var(--d-text-dim)!important;text-transform:uppercase;font-size:.75em!important;font-weight:700!important;letter-spacing:.6px!important}
+.detailsGroupItem a.button-link{color:var(--d-text)!important}
+.sectionTitle{color:var(--d-text)!important;font-weight:800!important;font-size:1.4em!important;letter-spacing:-.3px!important}
 
-.mdl-slider-background-upper {
-  background-color: rgba(255, 255, 255, 0.28) !important;
-  height: 4px !important;
-  border-radius: 2px !important;
-}
+/* Main detail action buttons (play, etc.) */
+.mainDetailButtons .detailButton{border-radius:6px!important;background:transparent!important;color:var(--d-text)!important;border:none!important}
+.mainDetailButtons .detailButton:is(:hover,:focus,.focused){background:transparent!important;color:var(--d-accent-hover)!important}
+.mainDetailButtons .detailButton:is(:hover,:focus,.focused) svg{fill:var(--d-accent-hover)!important;color:var(--d-accent-hover)!important}
+.mainDetailButtons .btnPlay,.mainDetailButtons .btnReplay{font-weight:700!important}
+.mainDetailButtons :is(.btnPlay,.btnReplay):is(:hover,:focus,.focused) .material-icons{color:var(--d-accent-hover)!important;fill:var(--d-accent-hover)!important}
 
-/* scrub handle — hidden by default, appears on hover like D+ */
-.mdl-slider::-webkit-slider-thumb,
-.sliderBubble,
-input[is="emby-slider"]::-webkit-slider-thumb {
-  background-color: var(--d-accent) !important;
-  box-shadow: 0 0 0 0 rgba(15, 124, 255, 0) !important;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
+/* Video OSD - layout */
+.videoOsdBottom,.videoOsdBottom-maincontrols,.osdControls{padding-left:0!important;padding-right:0!important;margin-left:0!important;margin-right:0!important;overflow:visible!important}
+.videoOsdBottom,.videoOsdBottom-maincontrols{background:var(--d-bg-gradient)!important;backdrop-filter:none!important;padding-top:0!important;padding-bottom:2.2vw!important;margin:0!important;border:none!important;width:100%!important;left:0!important;right:0!important;max-width:none!important;box-sizing:border-box!important}
+.osdControls{background:transparent!important;padding-top:0!important;padding-bottom:0!important;margin:0!important;overflow:visible!important}
+.osdControls .buttons,.videoOsdBottom-maincontrols{justify-content:space-between!important;overflow:visible!important}
+.sliderBubbleTrack {background:none!important}
 
-.sliderContainer:hover input[is="emby-slider"]::-webkit-slider-thumb {
-  transform: scale(1.3);
-  box-shadow: 0 0 6px 2px rgba(15, 124, 255, 0.6) !important;
-}
+/* Slider wrapper chain - overflow:visible on every ancestor between the
+   marker and the controls row, and position:relative so the marker's
+   absolute positioning anchors correctly instead of escaping to some
+   further-out positioned ancestor */
+.sliderContainer{overflow:visible!important}
+.mdl-slider-container{overflow:visible!important;position:relative!important}
+.mdl-slider-background-flex-container{background:none!important;overflow:visible!important}
+.mdl-slider-background-upper{background-color:#fff!important;border-radius:2px!important}
+.mdl-slider-background-lower{background-color:#00a4dc!important;border-radius:2px!important;overflow:visible!important}
 
-/* ---- Buttons (play/pause, skip, etc) ---- */
-.videoOsdBottom .paper-icon-button-light,
-.osdControls .paper-icon-button-light {
-  color: var(--d-text) !important;
-  background: transparent !important;
-  transition: transform 0.12s ease, color 0.12s ease;
-}
 
-.videoOsdBottom .paper-icon-button-light:hover,
-.osdControls .paper-icon-button-light:hover {
-  color: var(--d-accent-hover) !important;
-  transform: scale(1.08);
-  background: transparent !important;
-}
 
-/* Central play button — big circular style like D+ */
-.btnVideoOsdPause,
-.btnVideoOsdPlay {
-  width: 4.2em !important;
-  height: 4.2em !important;
-  border-radius: 50% !important;
-  border: 2px solid rgba(255, 255, 255, 0.85) !important;
-  background: rgba(0, 0, 0, 0.25) !important;
-}
+/* Video OSD - top app bar & title */
+.videoOsd-appBar{background:var(--d-bg-gradient-bottom)!important;display:flex!important}
+.videoOsd-appBar .MuiIconButton-root{color:var(--d-text)!important}
+.videoOsd-appBar .MuiIconButton-root:is(:hover,:focus,.focused){color:var(--d-accent-hover)!important}
+.videoOsd-appBar p.MuiTypography-root,.osdTitle{color:var(--d-text)!important;font-weight:600!important;width:100%!important;flex:1 1 auto!important}
+.osdTitle{font-size:1.25em!important}
+.osdMediaStatus,.osdPositionText,.osdDurationText,.osdTimeText .endsAtText{color:var(--d-text-dim)!important}
+.osdPositionText,.osdDurationText{font-variant-numeric:tabular-nums;font-size:.85em!important}
+.osdPositionText{padding-left:14px!important}
+.osdDurationText{padding-right:14px!important}
+.osdTimeText .endsAtText{font-size:.85em!important}
 
-.btnVideoOsdPause:hover,
-.btnVideoOsdPlay:hover {
-  border-color: var(--d-accent-hover) !important;
-  background: rgba(0, 0, 0, 0.45) !important;
-}
+.osdPositionSlider::-webkit-slider-thumb{opacity:0!important}
+.osdPositionSlider::-moz-range-thumb{opacity:0!important}
+.osdPositionSlider ~ .mdl-slider-background-flex-container .mdl-slider-background-lower::after{content:'';position:absolute;top:50%;right:-1.5px;transform:translateY(-50%);width:4px;height:48px;background:#fff;pointer-events:none;z-index:999;}
+/* Video OSD - transport controls */
+.osdControls .buttons .paper-icon-button-light{color:var(--d-text)!important;background:transparent!important}
+.osdControls .buttons .paper-icon-button-light:is(:hover,:focus,.focused){color:var(--d-accent-hover)!important;background:transparent!important}
+:is(.videoOsdBottom,.osdControls) :is(.btnPause,.btnPlay){width:2.8em!important;height:2.8em!important;border:none!important;background:transparent!important;box-shadow:none!important}
+:is(.videoOsdBottom,.osdControls) :is(.btnPause,.btnPlay):hover{background:transparent!important}
+:is(.videoOsdBottom,.osdControls) :is(.btnPause,.btnPlay) .material-icons{font-size:2em!important;color:var(--d-text)!important;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+:is(.videoOsdBottom,.osdControls) :is(.btnPause,.btnPlay):is(:hover,:focus,.focused) .material-icons{color:var(--d-accent-hover)!important;fill:var(--d-accent-hover)!important}
+.upNextContainer .btnNextUp,[class*="btnNextUp"]{background:rgba(255,255,255,.9)!important;color:#0a0a0a!important;border:none!important;border-radius:6px!important;font-weight:600!important;padding:.6em 1.4em!important}
+.upNextContainer .btnNextUp:hover,[class*="btnNextUp"]:hover{background:#fff!important;color:var(--d-accent-hover)!important}
 
-/* ---- Time text ---- */
-.osdTextContainer,
-.videoOsdBottom .currentTime,
-.videoOsdBottom .endsAt {
-  color: var(--d-text-dim) !important;
-  font-variant-numeric: tabular-nums;
-  font-size: 0.85em !important;
-}
+/* Video OSD - chapter/scrub thumbnail preview */
+.sliderBubble{background:none!important;background-color:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:none!important;box-shadow:none!important;outline:none!important;border-radius:0!important;padding:0!important;overflow:visible!important;margin-bottom:0!important}
+.sliderBubble.hide{display:none!important}
+.chapterThumbContainer,.osdThumbContainer{display:flex!important;flex-direction:column!important;align-items:center!important;overflow:visible!important;margin-bottom:0!important;padding:0!important;border:none!important;outline:none!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;background-color:transparent!important}
+.sliderBubble *:not(h2):not(.sliderBubbleText){background-color:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.chapterThumbContainer img,.osdThumbContainer img,.chapterThumbWrapper{border-radius:8px!important;overflow:hidden!important;box-shadow:var(--d-shadow-thumb)!important}
+.chapterThumbTextContainer{align-self:stretch!important;position:static!important;background:transparent!important;background-color:transparent!important;border:none!important;box-shadow:none!important;text-align:center!important;padding:0!important;margin-top:4px!important}
+.chapterThumbTextContainer>:not(h2){color:var(--d-text)!important;text-shadow:0 1px 4px rgba(0,0,0,.8)!important;text-align:center!important;margin:0 0 4px!important}
 
-/* ---- "Skip Intro" / "Next Episode" buttons — pill style like D+ ---- */
-.btnSkipIntro,
-.upNextContainer .btnNextUp,
-.skipIntroButton {
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #0a0a0a !important;
-  border: none !important;
-  border-radius: 4px !important;
-  font-weight: 600 !important;
-  padding: 0.6em 1.4em !important;
-  transition: background 0.15s ease;
-}
+/* Time pill */
+.sliderBubble,.sliderBubble *{color:#0a0a0a!important;font-weight:700!important;text-shadow:none!important}
+.chapterThumbContainer h2,.osdThumbContainer h2,.sliderBubbleText{background:#fff!important;color:#0a0a0a!important;font-weight:700!important;border-radius:var(--d-radius-pill)!important;padding:.2em .8em!important;margin:0!important;box-shadow:var(--d-shadow-pill)!important;text-shadow:none!important}
+.chapterThumbContainer h2,.osdThumbContainer h2,.sliderBubbleText{display:inline-block!important;font-size:.75em!important}
+/* .sliderBubbleText is the fallback plain-time bubble shown when no thumbnail is available */
 
-.btnSkipIntro:hover,
-.upNextContainer .btnNextUp:hover,
-.skipIntroButton:hover {
-  background: #ffffff !important;
-}
+/* Auto-hide after true pointer inactivity (d-scrub-autohide.js) */
+.chapterThumbContainer.d-scrub-idle,.osdThumbContainer.d-scrub-idle,.sliderBubble.d-scrub-idle{opacity:0!important;pointer-events:none!important;transition:opacity .35s ease!important}
 
-/* ---- Chapter / seek preview thumbnail ---- */
-.chapterThumbContainer,
-.osdThumbContainer {
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  border-radius: 6px !important;
-  overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-}
+/* Dialogs */
+.actionSheetContent,.dialog.actionSheet{background:rgba(12,15,20,.92)!important;border-radius:14px!important;border:1px solid var(--d-surface-border)!important;backdrop-filter:blur(10px)}
+.dialog,.formDialogHeader,.dashboardGeneralForm{background:var(--d-surface-solid)!important;color:var(--d-text)!important}
+.formDialogHeader{border-bottom:1px solid var(--d-surface-border)!important}
+.dialogBackdrop{background:rgba(0,0,0,.6)!important;backdrop-filter:blur(2px)}
 
-/* ---- Settings / more menu popups ---- */
-.actionSheetContent,
-.dialog.actionSheet {
-  background: rgba(15, 18, 22, 0.97) !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
+/* Global background & scrollbars */
+html,body,.backgroundContainer{background-color:#03080f!important}
+*{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.25) transparent}
+*::-webkit-scrollbar{width:8px;height:8px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:var(--d-radius-pill)}
+*::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.32)}
+::selection{background:var(--d-accent);color:var(--d-text)}
+
+/* Top header bar */
+.skinHeader,.skinHeader-withBackground{background:var(--d-surface)!important;backdrop-filter:blur(14px)}
+.pageTitle{color:var(--d-text)!important;font-weight:800!important}
+.headerButton,.headerUserButton{color:var(--d-text-dim)!important;background:transparent!important}
+.headerButton:is(:hover,:focus),.headerUserButton:is(:hover,:focus){color:var(--d-accent-hover)!important;background:transparent!important}
+.searchFields .emby-input,.headerSearchInput{background:var(--d-pill-bg)!important;border:1px solid var(--d-surface-border)!important;border-radius:var(--d-radius-pill)!important;color:var(--d-text)!important}
+
+/* Header / section tabs */
+.emby-tab-button{color:var(--d-text-dim)!important;font-weight:600!important;text-transform:none!important}
+.emby-tab-button .emby-button-foreground{color:inherit!important}
+.emby-tab-button-active{color:var(--d-text)!important}
+.emby-tab-button-active .emby-button-foreground{color:var(--d-accent-hover)!important}
+
+/* Navigation drawer */
+.mainDrawer{background:var(--d-surface)!important;backdrop-filter:blur(14px);border-right:1px solid var(--d-surface-border)!important}
+.navMenuOption{color:var(--d-text-dim)!important;border-radius:8px!important;font-weight:500!important}
+.navMenuOption:is(:hover,:focus){color:var(--d-text)!important;background:rgba(255,255,255,.06)!important}
+.navMenuOption-selected{background:var(--d-accent)!important;color:var(--d-text)!important}
+.navMenuOption-selected:hover{background:var(--d-accent-hover)!important}
+
+/* Buttons & form controls */
+.emby-button-foreground{color:var(--d-text)!important}
+.paper-icon-button-light{color:var(--d-text-dim)!important}
+.paper-icon-button-light:is(:hover,:focus){color:var(--d-accent-hover)!important;background:transparent!important}
+.raised.button-submit,.raised.button-alt,.button-submit,.button-alt{background:var(--d-accent)!important;color:var(--d-text)!important;border-radius:var(--d-radius-pill)!important;font-weight:700!important;border:none!important;text-transform:none!important}
+.raised.button-submit:hover,.raised.button-alt:hover,.button-submit:hover,.button-alt:hover{background:var(--d-accent-hover)!important}
+.button-cancel{background:transparent!important;color:var(--d-text-dim)!important;border:1px solid var(--d-surface-border)!important;border-radius:var(--d-radius-pill)!important}
+.button-cancel:hover{color:var(--d-text)!important;border-color:rgba(255,255,255,.25)!important}
+.emby-input,.emby-textarea,.emby-select{background:var(--d-input-bg)!important;border:1px solid var(--d-surface-border)!important;border-radius:8px!important;color:var(--d-text)!important}
+.emby-input:is(:hover,:focus),.emby-textarea:is(:hover,:focus),.emby-select:focus,.emby-select-withcolor{border-color:var(--d-accent)!important}
+.inputLabel,.selectLabel,.checkboxLabel,.fieldDescription{color:var(--d-text-dim)!important}
+.emby-checkbox-label .checkboxOutline{border-color:rgba(255,255,255,.35)!important}
+.emby-checkbox:checked+span>.checkboxOutline{background:var(--d-accent)!important;border-color:var(--d-accent)!important}
+
+/* Lists (search results, episode/library lists, settings) */
+.listItem{border-radius:8px!important}
+.listItem:is(:hover,:focus){background:rgba(255,255,255,.06)!important}
+.listItem-content{color:var(--d-text)!important}
+.listItem-overview,.secondary{color:var(--d-text-dim)!important}
+.paperList{background:transparent!important}
+
+/* Now playing (mini) bar */
+.nowPlayingBar{background:var(--d-surface)!important;backdrop-filter:blur(14px);border-top:1px solid var(--d-surface-border)!important}
+.nowPlayingBarText{color:var(--d-text)!important;font-weight:600!important}
+.nowPlayingBarSecondaryText{color:var(--d-text-dim)!important}
+
+/* Login page */
+#loginPage{background:radial-gradient(circle at top,rgba(15,138,255,.12),transparent 60%),#03080f!important}
+#loginPage h1{color:var(--d-text)!important}
+#loginPage .card{background:rgba(255,255,255,.04)!important;border:1px solid var(--d-surface-border)!important;border-radius:14px!important;backdrop-filter:blur(10px)}
+
+/* Toast notifications */
+.toast{background:var(--d-surface-solid)!important;color:var(--d-text)!important;border:1px solid var(--d-surface-border)!important;border-radius:var(--d-radius-md)!important;backdrop-filter:blur(10px)}
